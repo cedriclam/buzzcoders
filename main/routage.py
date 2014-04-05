@@ -28,6 +28,10 @@ if __name__ == '__main__':
 		_outputCarsMovements.append(list)
 		_totalTimeForTheCard.append(0)
 		print aCarsMovements
+	
+	# add the departure node
+	for aCarMovement in _outputCarsMovements:
+		aCarMovement.append(nodeStart)
 
 	
 	# get the start node 
@@ -71,8 +75,10 @@ if __name__ == '__main__':
 			else:
 				# we are done 
 				timeIsOver = True
-		
-		
-
+				
+	outputFile = open("output.txt", "wr")
+	
+	outputFile.write(str(nbCars) + "\n")
+	
 
 	
