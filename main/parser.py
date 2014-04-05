@@ -13,7 +13,7 @@ def createNodes(G, streets):
 def createEdges(G):
         i = 0
         while i < G.number_of_nodes():
-               G.add_edge(G[i]["intersect0"], G[i]["intersect1"])
+               G.add_edge(G[i]["intersect0"], G[i]["intersect1"],  weight="4,7")
                del G[i]["intersect1"]
                del G[i]["intersect0"]
                i += 1
