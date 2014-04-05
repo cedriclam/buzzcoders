@@ -10,7 +10,7 @@ def parseFile(inputFile):
         params = lines[0].split(" ")
         nbIntersections = int(params[0])
         nbStreets = int(params[1])
-        time = int(params[2])
+        Totaltime = int(params[2])
         nbCars = int(params[3])
         numStartIntersection = int(params[4])
 
@@ -18,6 +18,7 @@ def parseFile(inputFile):
         intersections = lines[1:endIntersection]
         streets = lines[endIntersection +1 : endIntersection + 1 + nbStreets]
 
+
         G=nx.Graph()
-	return G
+	return G, nbCars, Totaltime, intersections, streets
 
