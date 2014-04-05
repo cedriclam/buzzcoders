@@ -123,8 +123,10 @@ if __name__ == '__main__':
             if Matrixtmp[i][j] != MatrixOutput[i][j]:
                 if Matrixtmp[i][j] == '.':
                     command = "ERASECELL "+ str(j)+ " "+ str(i)+ "\n"
+                    outputInstruction.append(command)
                 if MatrixInput[i][j] == '.':
                     command = "PAINTSQ "+ str(j)+ " "+ str(i)+ " 0\n"
+                    outputInstruction.append(command)
             
             j =j + 1
         i = i + 1
