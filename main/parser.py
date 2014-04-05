@@ -1,5 +1,6 @@
 import sys
 import networkx as nx
+import algos
 
 def createNodes(G, streets):
         i = 0
@@ -8,14 +9,16 @@ def createNodes(G, streets):
                 G.add_node(i)
                 G[i]['intersect0'] = int(params[0])
                 G[i]["intersect1"] = int(params[1]) 
+                G[i]['weight'] = algos.ratio(float(params[4]), float(params[3]))
                 i += 1
 
 def createEdges(G):
         i = 0
         while i < G.number_of_nodes():
-               G.add_edge(G[i]["intersect0"], G[i]["intersect1"],  weight="4,7")
+               G.add_edge(G[i]["intersect0"], G[i]["intersect1"],  weight=G[i]["weight"], coef=1)
                del G[i]["intersect1"]
                del G[i]["intersect0"]
+               del G[i]["weight"]
                i += 1
  
 def parseFile(inputFile):
