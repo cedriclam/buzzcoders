@@ -1,8 +1,46 @@
 import parser
 import algos
 
-
 import networkx as nx
+
+def writeFile(name, _outputCarsMovements):
+	outputFile = open(name, "w+")
+	outputFile.write(str(len(_outputCarsMovements)) + "\n")
+	for cars in _outputCarsMovements:
+		outputFile.write(str(len(cars)) + "\n")
+		for dest in cars:
+			outputFile.write(str(dest) + "\n")
+
+def getBestNext(G, nodeStart, size = 10):
+	if size == 0:
+		return 0, 0
+	previousScore = -1
+	i = 0
+	previousScore2 = []
+	previousScore3 = []
+	for next in G[nodeStart]:
+		aNode = G[nodeStart][next]
+		# check if the sens of the road is possible
+		if algos.isWayPossible(nodeStart,aNode): 
+			previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
+			bestNext = next
+			n, b = getBestNext(G, bestNext, size - 1)
+			previousScore2.append(previousScore + b)
+			previousScore3.append(bestNext)
+	
+	prec = -1
+	i = 0
+	for s in previousScore2:
+		if prec == -1:
+			prec = s
+			bestNext = previousScore3[i]
+		else:
+			if prec > s:
+				prec = s
+				bestNext = previousScore3[i]
+		i += 1 
+	return bestNext, previousScore
+
 
 if __name__ == '__main__':
 	# Call parser
@@ -41,19 +79,8 @@ if __name__ == '__main__':
 		timeIsOver = False
 		while not timeIsOver:
 			bestNext = nodeStart
-			previousScore = -1
-			for next in G[nodeStart]:
-				aNode = G[nodeStart][next]
-				# check if the sens of the road is possible
-				if algos.isWayPossible(nodeStart,aNode): 
-					if previousScore == -1:
-						
-						previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
-						bestNext = next
-					else :
-						if algos.ratio(aNode["distance"],aNode["time"],aNode["coef"]) < previousScore :
-							previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
-							bestNext = next
+
+			bestNext, score = getBestNext(G, nodeStart)
 			
 			# now we have the best node, we can add it in the list of node for this car
 			bestEdge = G[nodeStart][bestNext]
@@ -66,13 +93,5 @@ if __name__ == '__main__':
 			else:
 				# we are done 
 				timeIsOver = True
-		
-	outputFile = open("output.txt", "w+")
-
-	outputFile.write(str(len(_outputCarsMovements)) + "\n")
-	for cars in _outputCarsMovements:
-		outputFile.write(str(len(cars)) + "\n")
-		for dest in cars:
-			outputFile.write(str(dest) + "\n")
-
 	
+	writeFile("output.txt", _outputCarsMovements)
