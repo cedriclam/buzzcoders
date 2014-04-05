@@ -29,6 +29,8 @@ if __name__ == '__main__':
 		_totalTimeForTheCard.append(0)
 		print aCarsMovements
 
+	for cars in _outputCarsMovements:
+		cars.append(nodeStart)
 	
 	# get the start node 
 	_startNode = G.node[nodeStart]
@@ -66,12 +68,17 @@ if __name__ == '__main__':
 				_totalTimeForTheCard[aCar-1] = _totalTimeForTheCard[aCar-1] + bestEdge["time"]
 				bestEdge["coef"] = bestEdge["coef"] + _addCoef
 				nodeStart = bestNext
-				print "add to car:" + str(aCar) + " node:" + str(bestNext)
+			#	print "add to car:" + str(aCar) + " node:" + str(bestNext)
 			else:
 				# we are done 
 				timeIsOver = True
 		
 		
+	print len(_outputCarsMovements)
+	for cars in _outputCarsMovements:
+		print len(cars)
+		for dest in cars:
+			print dest
 
 
 	
