@@ -24,14 +24,15 @@ if __name__ == '__main__':
 		bestNext = nodeStart
 		previousScore = -1
 		# search neigbourth and chose the best one
+		#print G[nodeStart]
 		for next in G[nodeStart]:
 			if previousScore == -1:
 				previousScore = algos.ratio(next["distance"],next["time"],next["coef"])
-				print next
+				bestNext = next
 			else :
 				if algos.ratio(next["distance"],next["time"],next["coef"]) < previousScore :
 					previousScore = algos.ratio(next["distance"],next["time"],next["coef"])
-		
+					bestNext = next
 		
 		
 		
