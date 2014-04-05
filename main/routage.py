@@ -11,7 +11,7 @@ def writeFile(name, _outputCarsMovements):
 		for dest in cars:
 			outputFile.write(str(dest) + "\n")
 
-def getBestNext(G, nodeStart, CarRoads, size = 5):
+def getBestNext(G, nodeStart, CarRoads, size = 3):
 	if size == 0:
 		return 0, 0
 	previousScore = -1
@@ -75,7 +75,7 @@ if __name__ == '__main__':
 	
 	# street info a Street[Distance,Time]
 	global _addCoef
-	_addCoef = 100
+	_addCoef = 130
 	
 	# create some structure
 	global _outputCarsMovements
@@ -101,22 +101,7 @@ if __name__ == '__main__':
 		nodeStart = tmp
 		timeIsOver = False
 		while not timeIsOver:
-			bestNext = nodeStart
-
 			bestNext, score = getBestNext(G, nodeStart,_outputCarsMovements)
-			
-			if bestNext == nodeStart:
-				for next in G[nodeStart]:
-					aNode = G[nodeStart][next]
-					# check if the sens of the road is possible
-					if algos.isWayPossible(nodeStart,aNode): 
-						if previousScore == -1:
-							previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
-							bestNext = next
-						else :
-							if algos.ratio(aNode["distance"],aNode["time"],aNode["coef"]) < previousScore :
-								previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
-								bestNext = next
 			
 			# now we have the best node, we can add it in the list of node for this car
 			bestEdge = G[nodeStart][bestNext]
