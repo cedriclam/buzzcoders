@@ -20,7 +20,17 @@ if __name__ == '__main__':
 	
 	# loop on the graph for each car
 	for aCar in range(1,nbCars):
-		_startNode.items()
+		
+		bestNext = nodeStart
+		previousScore = -1
+		# search neigbourth and chose the best one
+		for next in G[nodeStart]:
+			if previousScore == -1:
+				previousScore = algos.ratio(next["distance"],next["time"],next["coef"])
+				print next
+			else :
+				if algos.ratio(next["distance"],next["time"],next["coef"]) < previousScore :
+					previousScore = algos.ratio(next["distance"],next["time"],next["coef"])
 		
 		
 		
