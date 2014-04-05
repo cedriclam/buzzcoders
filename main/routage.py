@@ -28,15 +28,9 @@ if __name__ == '__main__':
 		list = []
 		_outputCarsMovements.append(list)
 		_totalTimeForTheCard.append(0)
-<<<<<<< HEAD
-		print aCarsMovements
+
 	
 	# add the departure node
-	for aCarMovement in _outputCarsMovements:
-		aCarMovement.append(nodeStart)
-=======
->>>>>>> a8bc2abbc288984ad8f6dcc7e8b7643ea65c4e33
-
 	for cars in _outputCarsMovements:
 		cars.append(nodeStart)
 	
