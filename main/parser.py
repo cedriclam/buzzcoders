@@ -8,21 +8,27 @@ def createNodes(G, streets):
                 params = street.split(" ")
                 G.add_node(i)
                 G[i]['intersect0'] = int(params[0])
-                G[i]["intersect1"] = int(params[1]) 
+                G[i]["intersect1"] = int(params[1])
+                G[i]['way'] = bool(int(params[2]) - 1)
+                G[i]['time'] = float(params[3]) 
                 G[i]['distance'] = float(params[4])
-                G[i]['time'] = float(params[3])
-                
+
                 i += 1
 
 def createEdges(G):
         i = 0
         while i < G.number_of_nodes():
-               G.add_edge(G[i]["intersect0"], G[i]["intersect1"], distance=G[i]['distance'] , time=G[i]['time'], coef = 1  )
+               if (G[i]["way"] == False):
+                        G.add_edge(G[i]["intersect0"], G[i]["intersect1"], distance=G[i]['distance'] , time=G[i]['time'], coef = 1, first=G[i]["intersect0"])
+               else:
+                        G.add_edge(G[i]["intersect0"], G[i]["intersect1"], distance=G[i]['distance'] , time=G[i]['time'], coef = 1)
+
                del G[i]["intersect1"]
                del G[i]["intersect0"]
                del G[i]["distance"]
                del G[i]["time"]
-        
+               del G[i]["way"]
+               
                i += 1
  
 def parseFile(inputFile):
