@@ -20,17 +20,17 @@ def getRatio(graph, nodeId, deep = 1):
     
     outputVal = 0
     bestRatio = -1
-    bestNode = -1
+
     for nextNode in graph[nodeId]:
         nextEdge = graph[nodeId][nextNode]
-        currentRatio = ratio(aNode["distance"],aNode["time"],aNode["coef"]) + getRatio(graph,nextNode, deep -1)
+        currentRatio = ratio(nextEdge["distance"],nextEdge["time"],nextEdge["coef"]) + deep*getRatio(graph,nextNode, deep -1)
         if bestRatio == -1:
-            bestRatio = currentRatio
-            bestNode = nextNode
-        else:
-            if currentRatio < bestRatio:
-                bestRatio = currentRatio
-                bestNode = nextNode
-                
             
+            bestRatio = currentRatio
+
+        #else:
+        #    if currentRatio < bestRatio:
+        #        print currentRatio
+        #        bestRatio = currentRatio
+
     return bestRatio

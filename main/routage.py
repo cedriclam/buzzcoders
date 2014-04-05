@@ -16,7 +16,7 @@ if __name__ == '__main__':
 	
 	# street info a Street[Distance,Time]
 	global _addCoef
-	_addCoef = 100
+	_addCoef = 130
 	
 	# create some structure
 	global _outputCarsMovements
@@ -48,14 +48,35 @@ if __name__ == '__main__':
 				aNode = G[nodeStart][next]
 				# check if the sens of the road is possible
 				if algos.isWayPossible(nodeStart,aNode): 
-					if previousScore == -1:
+					isPresent = False
+					for aCarMovement in _outputCarsMovements:
+						if next in aCarMovement:
+							isPresent = True
+							break
 						
+					if isPresent:
+						continue
+					
+					if previousScore == -1:
 						previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
 						bestNext = next
 					else :
 						if algos.ratio(aNode["distance"],aNode["time"],aNode["coef"]) < previousScore :
 							previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
 							bestNext = next
+			
+			if bestNext == nodeStart:
+				for next in G[nodeStart]:
+					aNode = G[nodeStart][next]
+					# check if the sens of the road is possible
+					if algos.isWayPossible(nodeStart,aNode): 
+						if previousScore == -1:
+							previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
+							bestNext = next
+						else :
+							if algos.ratio(aNode["distance"],aNode["time"],aNode["coef"]) < previousScore :
+								previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
+								bestNext = next
 			
 			# now we have the best node, we can add it in the list of node for this car
 			bestEdge = G[nodeStart][bestNext]
@@ -65,6 +86,7 @@ if __name__ == '__main__':
 				_totalTimeForTheCard[aCar-1] = _totalTimeForTheCard[aCar-1] + bestEdge["time"]
 				bestEdge["coef"] = bestEdge["coef"] + _addCoef
 				nodeStart = bestNext
+				print "."
 			else:
 				# we are done 
 				timeIsOver = True
