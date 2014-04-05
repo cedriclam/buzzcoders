@@ -38,12 +38,13 @@ if __name__ == '__main__':
 	# loop on the graph for each car
 	for aCar in range(1,nbCars+1):
 		print aCar
-		bestNext = nodeStart
+		
 		
 		# search neigbourth and chose the best one
 		#print G[nodeStart]
 		timeIsOver = False
 		while not timeIsOver:
+			bestNext = nodeStart
 			previousScore = -1
 			for next in G[nodeStart]:
 				aNode = G[nodeStart][next]
