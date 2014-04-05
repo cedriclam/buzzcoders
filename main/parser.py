@@ -1,6 +1,23 @@
 import sys
 import networkx as nx
 
+def createNodes(G, streets):
+        i = 0
+        for street in streets:
+                params = street.split(" ")
+                G.add_node(i)
+                G[i]['intersect0'] = int(params[0])
+                G[i]["intersect1"] = int(params[1]) 
+                i += 1
+
+def createEdges(G):
+        i = 0
+        while i < G.number_of_nodes():
+               G.add_edge(G[i]["intersect0"], G[i]["intersect1"])
+               del G[i]["intersect1"]
+               del G[i]["intersect0"]
+               i += 1
+ 
 def parseFile(inputFile):
         inputFile = open(inputFile)
         print "Name of the file : ", inputFile.name
@@ -18,7 +35,10 @@ def parseFile(inputFile):
         intersections = lines[1:endIntersection]
         streets = lines[endIntersection +1 : endIntersection + 1 + nbStreets]
 
+        G = nx.Graph()
 
-        G=nx.Graph()
+        createNodes(G, streets)
+        createEdges(G)
+
 	return G, nbCars, Totaltime, intersections, streets
 
