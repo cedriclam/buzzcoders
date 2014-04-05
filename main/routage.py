@@ -15,25 +15,37 @@ if __name__ == '__main__':
 	
 	# street info a Street[Distance,Time]
 	
+	# create some structure
+	_outputCarsMovements = []
+	_totalTimeForTheCard = []
+	for aCarsMovements in range(1,nbCars+1):
+		list = []
+		_outputCarsMovements.append(list)
+		_totalTimeForTheCard.append(0)
+		print "create movement list for Gcars"
+	
 	# get the start node 
 	_startNode = G.node[nodeStart]
 	
 	# loop on the graph for each car
-	for aCar in range(1,nbCars):
-		
+	for aCar in range(1,nbCars+1):
+		print aCar
 		bestNext = nodeStart
 		previousScore = -1
 		# search neigbourth and chose the best one
 		#print G[nodeStart]
 		for next in G[nodeStart]:
 			if previousScore == -1:
-				previousScore = algos.ratio(next["distance"],next["time"],next["coef"])
+				aNode = G[nodeStart][next]
+				previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
 				bestNext = next
 			else :
-				if algos.ratio(next["distance"],next["time"],next["coef"]) < previousScore :
-					previousScore = algos.ratio(next["distance"],next["time"],next["coef"])
+				if algos.ratio(aNode["distance"],aNode["time"],aNode["coef"]) < previousScore :
+					previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
 					bestNext = next
 		
+		# now we have the best node, we can add it in the list of node for this car
+		G[nodeStart][bestNext]
 		
 		
 	
