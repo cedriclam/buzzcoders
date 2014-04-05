@@ -20,5 +20,5 @@ def parseFile(inputFile):
 
 
         G=nx.Graph()
-	return G, nbCars, Totaltime, intersections, streets
+	return G, nbCars, Totaltime, intersections, streets, numStartIntersection
 
