@@ -21,7 +21,7 @@ def createEdges(G):
                if (G[i]["way"] == False):
                         G.add_edge(G[i]["intersect0"], G[i]["intersect1"], distance=G[i]['distance'] , time=G[i]['time'], coef = 1, first=G[i]["intersect0"])
                else:
-                        G.add_edge(G[i]["intersect0"], G[i]["intersect1"], distance=G[i]['distance'] , time=G[i]['time'], coef = 1)
+                        G.add_edge(G[i]["intersect0"], G[i]["intersect1"], distance=G[i]['distance'] , time=G[i]['time'], coef = 1, first = -1)
 
                del G[i]["intersect1"]
                del G[i]["intersect0"]
