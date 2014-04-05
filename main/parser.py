@@ -1,4 +1,3 @@
-import sys
 import networkx as nx
 import algos
 
@@ -33,7 +32,7 @@ def createEdges(G):
  
 def parseFile(inputFile):
         inputFile = open(inputFile)
-#        print "Name of the file : ", inputFile.name
+        print "Name of the file : ", inputFile.name
         lines = inputFile.readlines()
 
 
