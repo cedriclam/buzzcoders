@@ -28,12 +28,12 @@ def createEdges(G):
                del G[i]["distance"]
                del G[i]["time"]
                del G[i]["way"]
-               
+
                i += 1
  
 def parseFile(inputFile):
         inputFile = open(inputFile)
-        print "Name of the file : ", inputFile.name
+#        print "Name of the file : ", inputFile.name
         lines = inputFile.readlines()
 
 

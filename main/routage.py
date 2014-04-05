@@ -8,14 +8,14 @@ if __name__ == '__main__':
 	G = nx.Graph()
 	G, nbCars, Totaltime, intersections, streets, nodeStart = parser.parseFile("paris_54000.txt")
 	
-	print "totaltime : ", str(Totaltime)
-	print "nbCars : ", str(nbCars)
-	print "streets nb : ", str(len(streets))
-	print "intersections nb : ", str(len(intersections))
+#	print "totaltime : ", str(Totaltime)
+#	print "nbCars : ", str(nbCars)
+#	print "streets nb : ", str(len(streets))
+#	print "intersections nb : ", str(len(intersections))
 	
 	# street info a Street[Distance,Time]
 	global _addCoef
-	_addCoef = 1
+	_addCoef = 100
 	
 	# create some structure
 	global _outputCarsMovements
@@ -27,21 +27,18 @@ if __name__ == '__main__':
 		list = []
 		_outputCarsMovements.append(list)
 		_totalTimeForTheCard.append(0)
-		print aCarsMovements
+#		print aCarsMovements
 
 	for cars in _outputCarsMovements:
 		cars.append(nodeStart)
 	
-	# get the start node 
-	_startNode = G.node[nodeStart]
-	
+	tmp = nodeStart
 	# loop on the graph for each car
 	for aCar in range(1,nbCars+1):
-		print aCar
-		
-		
+
 		# search neigbourth and chose the best one
 		#print G[nodeStart]
+		nodeStart = tmp
 		timeIsOver = False
 		while not timeIsOver:
 			bestNext = nodeStart
@@ -77,7 +74,7 @@ if __name__ == '__main__':
 		
 	print len(_outputCarsMovements)
 	for cars in _outputCarsMovements:
-		print len(cars)
+		print(len(cars))
 		for dest in cars:
 			print dest
 
