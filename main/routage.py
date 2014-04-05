@@ -1,6 +1,7 @@
 import parser
 import algos
 
+
 import networkx as nx
 
 if __name__ == '__main__':
@@ -15,7 +16,7 @@ if __name__ == '__main__':
 	
 	# street info a Street[Distance,Time]
 	global _addCoef
-	_addCoef = 1
+	_addCoef = 100
 	
 	# create some structure
 	global _outputCarsMovements
@@ -27,23 +28,24 @@ if __name__ == '__main__':
 		list = []
 		_outputCarsMovements.append(list)
 		_totalTimeForTheCard.append(0)
+<<<<<<< HEAD
 		print aCarsMovements
 	
 	# add the departure node
 	for aCarMovement in _outputCarsMovements:
 		aCarMovement.append(nodeStart)
+=======
+>>>>>>> a8bc2abbc288984ad8f6dcc7e8b7643ea65c4e33
 
+	for cars in _outputCarsMovements:
+		cars.append(nodeStart)
 	
-	# get the start node 
-	_startNode = G.node[nodeStart]
-	
+	tmp = nodeStart
 	# loop on the graph for each car
 	for aCar in range(1,nbCars+1):
-		print aCar
-		
-		
+
 		# search neigbourth and chose the best one
-		#print G[nodeStart]
+		nodeStart = tmp
 		timeIsOver = False
 		while not timeIsOver:
 			bestNext = nodeStart
@@ -62,8 +64,6 @@ if __name__ == '__main__':
 							bestNext = next
 			
 			# now we have the best node, we can add it in the list of node for this car
-			#print G[nodeStart]
-			#print bestNext
 			bestEdge = G[nodeStart][bestNext]
 			if (_totalTimeForTheCard[aCar-1] + bestEdge["time"]) <= Totaltime:
 				# we can add this Node
@@ -71,14 +71,17 @@ if __name__ == '__main__':
 				_totalTimeForTheCard[aCar-1] = _totalTimeForTheCard[aCar-1] + bestEdge["time"]
 				bestEdge["coef"] = bestEdge["coef"] + _addCoef
 				nodeStart = bestNext
-				print "add to car:" + str(aCar) + " node:" + str(bestNext)
 			else:
 				# we are done 
 				timeIsOver = True
-				
-	outputFile = open("output.txt", "wr")
-	
-	outputFile.write(str(nbCars) + "\n")
-	
+		
+	outputFile = open("output.txt", "w+")
+
+	outputFile.write(str(len(_outputCarsMovements)) + "\n")
+	for cars in _outputCarsMovements:
+		outputFile.write(str(len(cars)) + "\n")
+		for dest in cars:
+			outputFile.write(str(dest) + "\n")
+
 
 	
