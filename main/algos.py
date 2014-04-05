@@ -8,4 +8,8 @@ def ratio(distance,time,coef = 1):
 def chooseEdge(graph,nodeId):
     pass
 
-    
+def isWayPossible(nodeStart,aNode):
+    if aNode["first"]:
+        if aNode["first"] != nodeStart:
+            return False
+    return True

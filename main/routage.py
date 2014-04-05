@@ -35,17 +35,21 @@ if __name__ == '__main__':
 		# search neigbourth and chose the best one
 		#print G[nodeStart]
 		for next in G[nodeStart]:
-			if previousScore == -1:
-				aNode = G[nodeStart][next]
-				previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
-				bestNext = next
-			else :
-				if algos.ratio(aNode["distance"],aNode["time"],aNode["coef"]) < previousScore :
+			aNode = G[nodeStart][next]
+			# check if the sens of the road is possible
+			if algos.isWayPossible(nodeStart,aNode): 
+				if previousScore == -1:
+					
 					previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
 					bestNext = next
+				else :
+					if algos.ratio(aNode["distance"],aNode["time"],aNode["coef"]) < previousScore :
+						previousScore = algos.ratio(aNode["distance"],aNode["time"],aNode["coef"])
+						bestNext = next
 		
 		# now we have the best node, we can add it in the list of node for this car
 		G[nodeStart][bestNext]
 		
-		
+
+
 	
